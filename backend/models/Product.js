@@ -51,6 +51,20 @@ const productSchema = new mongoose.Schema(
             required: true,
             min: 0,
             default: 0
+        },
+
+        // Cloudinary secure URL for the product image (empty when none uploaded).
+        imageUrl: {
+            type: String,
+            trim: true,
+            default: ""
+        },
+
+        // Cloudinary public_id, needed to replace or delete the asset.
+        imagePublicId: {
+            type: String,
+            trim: true,
+            default: ""
         }
     },
     {

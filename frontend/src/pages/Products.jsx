@@ -203,16 +203,30 @@ function ProductCard({ product, onEdit, onDelete }) {
     return (
         <div className="glass glass-hover flex flex-col rounded-2xl p-5">
             <div className="flex items-start justify-between gap-3">
-                <div className="min-w-0">
-                    <Link
-                        to={`/products/${product._id}`}
-                        className="block truncate text-base font-semibold text-white hover:text-iris-300"
-                    >
-                        {product.name}
-                    </Link>
-                    <p className="mono-tag mt-0.5 text-xs uppercase tracking-widest text-iris-400">
-                        {product.sku}
-                    </p>
+                <div className="flex min-w-0 items-start gap-3">
+                    {product.imageUrl ? (
+                        <img
+                            src={product.imageUrl}
+                            alt={product.name}
+                            loading="lazy"
+                            className="h-12 w-12 shrink-0 rounded-lg border border-iris-400/15 object-cover"
+                        />
+                    ) : (
+                        <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-lg border border-dashed border-iris-400/20 text-[9px] text-[#7c7396]">
+                            No image
+                        </div>
+                    )}
+                    <div className="min-w-0">
+                        <Link
+                            to={`/products/${product._id}`}
+                            className="block truncate text-base font-semibold text-white hover:text-iris-300"
+                        >
+                            {product.name}
+                        </Link>
+                        <p className="mono-tag mt-0.5 text-xs uppercase tracking-widest text-iris-400">
+                            {product.sku}
+                        </p>
+                    </div>
                 </div>
                 <StockBadge quantity={product.quantityInStock} reorderLevel={product.reorderLevel} />
             </div>

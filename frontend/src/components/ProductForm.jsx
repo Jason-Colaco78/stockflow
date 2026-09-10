@@ -1,6 +1,19 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import api, { apiError } from "../api";
 import { useToast } from "../context/ToastContext.jsx";
+
+const IMAGE_TYPES = ["image/jpeg", "image/png", "image/webp"];
+const MAX_IMAGE_BYTES = 2 * 1024 * 1024; // 2 MB — matches the backend limit
+
+function validateImageFile(file) {
+    if (!IMAGE_TYPES.includes(file.type)) {
+        return "Use a JPEG, PNG, or WEBP image";
+    }
+    if (file.size > MAX_IMAGE_BYTES) {
+        return "Image must be 2 MB or smaller";
+    }
+    return "";
+}
 
 // Parent passes a `key` tied to the record id, so this only needs to build
 // initial field values once per mount (no prop-sync effect required).
@@ -27,6 +40,34 @@ export default function ProductForm({ initial, onSaved, onCancel }) {
     const [refsLoading, setRefsLoading] = useState(true);
     const [errors, setErrors] = useState({});
     const [saving, setSaving] = useState(false);
+
+    const [imageFile, setImageFile] = useState(null);
+
+    // Local preview for a freshly picked file; falls back to the saved image.
+    const objectUrl = useMemo(
+        () => (imageFile ? URL.createObjectURL(imageFile) : ""),
+        [imageFile]
+    );
+    useEffect(() => {
+        return () => {
+            if (objectUrl) URL.revokeObjectURL(objectUrl);
+        };
+    }, [objectUrl]);
+    const imagePreview = objectUrl || initial?.imageUrl || "";
+
+    const onPickImage = (e) => {
+        const file = e.target.files?.[0];
+        if (!file) return;
+        const msg = validateImageFile(file);
+        if (msg) {
+            setErrors((prev) => ({ ...prev, image: msg }));
+            setImageFile(null);
+            e.target.value = "";
+            return;
+        }
+        setErrors((prev) => ({ ...prev, image: undefined }));
+        setImageFile(file);
+    };
 
     useEffect(() => {
         let alive = true;
@@ -88,17 +129,33 @@ export default function ProductForm({ initial, onSaved, onCancel }) {
 
         setSaving(true);
         try {
+            let productId = initial?._id;
             if (isEdit) {
                 await api.put(`/products/${initial._id}`, payload);
-                toast.success("Product updated");
             } else {
-                await api.post("/products", {
+                const res = await api.post("/products", {
                     ...payload,
                     quantityInStock:
                         form.quantityInStock === "" ? 0 : Number(form.quantityInStock)
                 });
-                toast.success("Product created");
+                productId = res.data?.data?._id;
             }
+
+            // Image is uploaded separately as multipart/form-data so normal
+            // product/stock updates never carry image fields.
+            if (imageFile && productId) {
+                const fd = new FormData();
+                fd.append("image", imageFile);
+                try {
+                    await api.post(`/products/${productId}/image`, fd);
+                } catch (imgErr) {
+                    toast.error(apiError(imgErr, "Product saved, but image upload failed"));
+                    onSaved();
+                    return;
+                }
+            }
+
+            toast.success(isEdit ? "Product updated" : "Product created");
             onSaved();
         } catch (err) {
             toast.error(apiError(err, "Failed to save product"));
@@ -164,6 +221,31 @@ export default function ProductForm({ initial, onSaved, onCancel }) {
                     </Field>
                 )}
             </div>
+
+            <Field label="Product Image" error={errors.image}>
+                <div className="flex items-center gap-3">
+                    {imagePreview ? (
+                        <img
+                            src={imagePreview}
+                            alt="Product preview"
+                            className="h-16 w-16 shrink-0 rounded-lg border border-iris-400/15 object-cover"
+                        />
+                    ) : (
+                        <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-lg border border-dashed border-iris-400/20 text-[10px] text-[#7c7396]">
+                            No image
+                        </div>
+                    )}
+                    <input
+                        type="file"
+                        accept="image/jpeg,image/png,image/webp"
+                        className="field"
+                        onChange={onPickImage}
+                    />
+                </div>
+                <span className="mt-1 block text-xs text-[#7c7396]">
+                    JPEG, PNG, or WEBP · max 2 MB{isEdit ? " · replaces the current image" : ""}
+                </span>
+            </Field>
 
             {isEdit && (
                 <p className="mono-tag rounded-lg border border-iris-400/15 bg-void/40 px-3 py-2 text-xs text-[#7c7396]">

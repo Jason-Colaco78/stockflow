@@ -58,6 +58,14 @@ export default function ProductDetails() {
                         />
                     </div>
 
+                    {product.imageUrl && (
+                        <img
+                            src={product.imageUrl}
+                            alt={product.name}
+                            className="mt-4 max-h-64 w-full rounded-xl border border-iris-400/15 object-cover"
+                        />
+                    )}
+
                     {product.description && (
                         <p className="mt-4 max-w-prose text-sm text-[#c9c1de]">{product.description}</p>
                     )}

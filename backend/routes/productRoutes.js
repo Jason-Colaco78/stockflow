@@ -5,8 +5,10 @@ const {
     createProduct,
     getProductById,
     updateProduct,
-    deleteProduct
+    deleteProduct,
+    uploadProductImage
 } = require("../controllers/productController");
+const { uploadProductImage: parseProductImage } = require("../middleware/uploadImage");
 
 const router = express.Router();
 
@@ -15,5 +17,8 @@ router.post("/", createProduct);
 router.get("/:id", getProductById);
 router.put("/:id", updateProduct);
 router.delete("/:id", deleteProduct);
+
+// Upload / replace the product image (multipart/form-data, field name: "image").
+router.post("/:id/image", parseProductImage, uploadProductImage);
 
 module.exports = router;
