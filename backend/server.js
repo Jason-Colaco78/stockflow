@@ -14,7 +14,11 @@ const app=express();
 const PORT = process.env.PORT || 7000;
 
 // Middleware
-app.use(cors());
+// In production set FRONTEND_URL to the deployed frontend origin (the Netlify
+// URL) to restrict CORS to that origin. When unset (local development) all
+// origins are allowed so the Vite dev server works on whatever port it picks.
+const allowedOrigin = process.env.FRONTEND_URL;
+app.use(cors(allowedOrigin ? { origin: allowedOrigin } : {}));
 app.use(express.json());
 app.use("/api/categories", categoryRoutes);
 app.use("/api/suppliers", supplierRoutes);
