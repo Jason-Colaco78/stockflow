@@ -46,10 +46,10 @@ export function ToastProvider({ children }) {
                         <span className="mt-0.5">
                             {t.type === "success" ? "✓" : t.type === "error" ? "!" : "i"}
                         </span>
-                        <span className="flex-1 text-[#e7e2f5]">{t.message}</span>
+                        <span className="flex-1 text-ink">{t.message}</span>
                         <button
                             onClick={() => dismiss(t.id)}
-                            className="text-[#9c92b8] hover:text-white"
+                            className="text-ink-soft hover:text-ink"
                             aria-label="Dismiss"
                         >
                             ×

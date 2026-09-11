@@ -80,8 +80,8 @@ export default function Transactions() {
                             onClick={() => setType(t.key)}
                             className={`rounded-lg px-3 py-2 text-xs font-semibold transition ${
                                 type === t.key
-                                    ? "bg-iris-500/25 text-white"
-                                    : "bg-white/5 text-[#9c92b8] hover:text-white"
+                                    ? "bg-iris-500/25 text-ink"
+                                    : "bg-mist/5 text-ink-soft hover:text-ink"
                             }`}
                         >
                             {t.label}
@@ -103,7 +103,7 @@ export default function Transactions() {
                 <EmptyState title="No matches" hint="Adjust your search or filter." />
             ) : (
                 <div className="glass overflow-hidden rounded-2xl">
-                    <div className="hidden grid-cols-[90px_1fr_100px_1fr_180px] gap-4 border-b border-iris-400/15 px-5 py-3 text-[11px] font-semibold uppercase tracking-widest text-[#7c7396] lg:grid">
+                    <div className="hidden grid-cols-[90px_1fr_100px_1fr_180px] gap-4 border-b border-iris-400/15 px-5 py-3 text-[11px] font-semibold uppercase tracking-widest text-ink-mute lg:grid">
                         <span>Type</span>
                         <span>Product</span>
                         <span>Qty</span>
@@ -129,22 +129,22 @@ export default function Transactions() {
                                     {t.product ? (
                                         <Link
                                             to={`/products/${t.product._id}`}
-                                            className="truncate font-medium text-white hover:text-iris-300"
+                                            className="truncate font-medium text-ink hover:text-iris-300"
                                         >
                                             {t.product.name}
                                         </Link>
                                     ) : (
-                                        <span className="text-[#7c7396]">Deleted product</span>
+                                        <span className="text-ink-mute">Deleted product</span>
                                     )}
                                     {t.product?.sku && (
-                                        <span className="mono-tag ml-2 text-[11px] text-[#7c7396]">
+                                        <span className="mono-tag ml-2 text-[11px] text-ink-mute">
                                             {t.product.sku}
                                         </span>
                                     )}
                                 </span>
-                                <span className="font-semibold text-[#e7e2f5]">{num(t.quantity)}</span>
-                                <span className="truncate text-sm text-[#9c92b8]">{t.note || "—"}</span>
-                                <span className="mono-tag text-[11px] text-[#7c7396]">
+                                <span className="font-semibold text-ink">{num(t.quantity)}</span>
+                                <span className="truncate text-sm text-ink-soft">{t.note || "—"}</span>
+                                <span className="mono-tag text-[11px] text-ink-mute">
                                     {dateTime(t.createdAt)} · {relativeTime(t.createdAt)}
                                 </span>
                             </li>
@@ -156,10 +156,10 @@ export default function Transactions() {
     );
 }
 
-function Stat({ label, value, cls = "text-white" }) {
+function Stat({ label, value, cls = "text-ink" }) {
     return (
         <div className="glass rounded-2xl p-4">
-            <p className="mono-tag text-[11px] uppercase tracking-widest text-[#7c7396]">{label}</p>
+            <p className="mono-tag text-[11px] uppercase tracking-widest text-ink-mute">{label}</p>
             <p className={`mt-1 text-2xl font-bold ${cls}`}>{value}</p>
         </div>
     );

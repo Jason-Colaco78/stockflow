@@ -17,7 +17,7 @@ export function StockBadge({ quantity, reorderLevel }) {
 
 export function Spinner({ label = "Loading" }) {
     return (
-        <div className="flex flex-col items-center justify-center gap-3 py-16 text-[#9c92b8]">
+        <div className="flex flex-col items-center justify-center gap-3 py-16 text-ink-soft">
             <span className="h-8 w-8 animate-spin rounded-full border-2 border-iris-500/30 border-t-iris-400" />
             <span className="mono-tag text-xs uppercase tracking-widest">{label}…</span>
         </div>
@@ -28,7 +28,7 @@ export function ErrorBlock({ message, onRetry }) {
     return (
         <div className="glass flex flex-col items-center gap-3 rounded-2xl border-signal-out/30 px-6 py-14 text-center">
             <span className="text-2xl">⚠</span>
-            <p className="text-sm text-[#f2c9d2]">{message}</p>
+            <p className="text-sm text-signal-out">{message}</p>
             {onRetry && (
                 <button className="btn btn-ghost mt-1" onClick={onRetry}>
                     Retry
@@ -44,8 +44,8 @@ export function EmptyState({ title, hint, action }) {
             <div className="mb-1 flex h-12 w-12 items-center justify-center rounded-xl bg-iris-500/15 text-xl">
                 ▦
             </div>
-            <p className="text-base font-semibold text-[#e7e2f5]">{title}</p>
-            {hint && <p className="max-w-sm text-sm text-[#9c92b8]">{hint}</p>}
+            <p className="text-base font-semibold text-ink">{title}</p>
+            {hint && <p className="max-w-sm text-sm text-ink-soft">{hint}</p>}
             {action && <div className="mt-3">{action}</div>}
         </div>
     );
@@ -62,8 +62,8 @@ export function PageHeader({ eyebrow, title, subtitle, actions }) {
                         {eyebrow}
                     </p>
                 )}
-                <h1 className="text-2xl font-bold text-white sm:text-3xl">{title}</h1>
-                {subtitle && <p className="mt-1 text-sm text-[#9c92b8]">{subtitle}</p>}
+                <h1 className="text-2xl font-bold text-ink sm:text-3xl">{title}</h1>
+                {subtitle && <p className="mt-1 text-sm text-ink-soft">{subtitle}</p>}
             </div>
             {actions && <div className="flex flex-wrap gap-2">{actions}</div>}
         </div>
@@ -88,7 +88,7 @@ export function Modal({ open, onClose, title, children, wide }) {
 
     return (
         <div
-            className="fixed inset-0 z-50 flex items-start justify-center overflow-y-auto bg-void/70 p-4 backdrop-blur-sm sm:p-8"
+            className="fixed inset-0 z-50 flex items-start justify-center overflow-y-auto bg-black/60 p-4 backdrop-blur-sm sm:p-8"
             onMouseDown={onClose}
         >
             <div
@@ -96,10 +96,10 @@ export function Modal({ open, onClose, title, children, wide }) {
                 onMouseDown={(e) => e.stopPropagation()}
             >
                 <div className="mb-4 flex items-center justify-between">
-                    <h2 className="text-lg font-semibold text-white">{title}</h2>
+                    <h2 className="text-lg font-semibold text-ink">{title}</h2>
                     <button
                         onClick={onClose}
-                        className="text-xl leading-none text-[#9c92b8] hover:text-white"
+                        className="text-xl leading-none text-ink-soft hover:text-ink"
                         aria-label="Close"
                     >
                         ×
@@ -114,7 +114,7 @@ export function Modal({ open, onClose, title, children, wide }) {
 export function ConfirmDialog({ open, title, message, confirmLabel = "Delete", onConfirm, onCancel, busy }) {
     return (
         <Modal open={open} onClose={busy ? () => {} : onCancel} title={title}>
-            <p className="text-sm text-[#c9c1de]">{message}</p>
+            <p className="text-sm text-ink">{message}</p>
             <div className="mt-6 flex justify-end gap-2">
                 <button className="btn btn-ghost" onClick={onCancel} disabled={busy}>
                     Cancel

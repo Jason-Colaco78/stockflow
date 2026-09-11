@@ -11,6 +11,16 @@
       rel="stylesheet"
     />
     <title>StockFlow — Inventory & Operations</title>
+    <script>
+      (function () {
+        try {
+          var stored = window.localStorage.getItem("stockflow-theme");
+          document.documentElement.setAttribute("data-theme", stored === "light" ? "light" : "dark");
+        } catch (e) {
+          document.documentElement.setAttribute("data-theme", "dark");
+        }
+      })();
+    </script>
   </head>
   <body>
     <div id="root"></div>

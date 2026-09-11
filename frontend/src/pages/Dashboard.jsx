@@ -135,9 +135,9 @@ export default function Dashboard() {
             </div>
 
             <div className="mt-4 grid gap-4 lg:grid-cols-3">
-                <div className="glass rounded-2xl p-5 lg:col-span-2">
+                <div className="glass attention-panel rounded-2xl p-5 lg:col-span-2">
                     <div className="mb-4 flex items-center justify-between">
-                        <h2 className="text-sm font-semibold uppercase tracking-widest text-[#9c92b8]">
+                        <h2 className="text-sm font-semibold uppercase tracking-widest text-ink-soft">
                             Needs Attention
                         </h2>
                         {attentionProducts.length > 0 && (
@@ -162,7 +162,7 @@ export default function Dashboard() {
                     {attentionProducts.length > 6 && (
                         <Link
                             to="/products"
-                            className="mono-tag mt-4 inline-flex items-center gap-2 text-xs uppercase tracking-widest text-iris-300 hover:text-white"
+                            className="mono-tag mt-4 inline-flex items-center gap-2 text-xs uppercase tracking-widest text-iris-300 hover:text-ink"
                         >
                             +{attentionProducts.length - 6} more need attention →
                         </Link>
@@ -170,7 +170,7 @@ export default function Dashboard() {
                 </div>
 
                 <div id="stock-distribution" className="glass scroll-mt-20 rounded-2xl p-5">
-                    <h2 className="mb-4 text-sm font-semibold uppercase tracking-widest text-[#9c92b8]">
+                    <h2 className="mb-4 text-sm font-semibold uppercase tracking-widest text-ink-soft">
                         Stock Distribution
                     </h2>
                     <div className="flex h-3 w-full overflow-hidden rounded-full bg-void/60">
@@ -188,12 +188,12 @@ export default function Dashboard() {
 
             <div className="mt-4 grid gap-4 lg:grid-cols-3">
                 <div className="glass rounded-2xl p-5">
-                    <h2 className="mb-4 text-sm font-semibold uppercase tracking-widest text-[#9c92b8]">
+                    <h2 className="mb-4 text-sm font-semibold uppercase tracking-widest text-ink-soft">
                         Control Signals
                     </h2>
                     <ul className="space-y-3">
                         {insights.map((line, i) => (
-                            <li key={i} className="flex items-start gap-2.5 text-sm text-[#c9c1de]">
+                            <li key={i} className="flex items-start gap-2.5 text-sm text-ink">
                                 <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-iris-400" />
                                 <span>{line}</span>
                             </li>
@@ -202,7 +202,7 @@ export default function Dashboard() {
                 </div>
 
                 <div className="glass rounded-2xl p-5 lg:col-span-2">
-                    <h2 className="mb-4 text-sm font-semibold uppercase tracking-widest text-[#9c92b8]">
+                    <h2 className="mb-4 text-sm font-semibold uppercase tracking-widest text-ink-soft">
                         Largest Inventory Positions
                     </h2>
                     {topHoldings.length === 0 ? (
@@ -222,20 +222,20 @@ export default function Dashboard() {
             <div className="mt-4 grid gap-4 lg:grid-cols-3">
                 <div className="glass rounded-2xl p-5 lg:col-span-2">
                     <div className="mb-4 flex items-center justify-between">
-                        <h2 className="text-sm font-semibold uppercase tracking-widest text-[#9c92b8]">
+                        <h2 className="text-sm font-semibold uppercase tracking-widest text-ink-soft">
                             Recent Movement
                         </h2>
-                        <Link to="/transactions" className="text-xs text-iris-300 hover:text-white">
+                        <Link to="/transactions" className="text-xs text-iris-300 hover:text-ink">
                             View all
                         </Link>
                     </div>
                     <div className="mb-4 grid grid-cols-2 gap-3">
-                        <div className="rounded-xl bg-void/40 px-3.5 py-3">
-                            <p className="mono-tag text-[11px] uppercase tracking-widest text-[#7c7396]">Today · IN</p>
+                        <div className="rounded-xl bg-panel/60 px-3.5 py-3">
+                            <p className="mono-tag text-[11px] uppercase tracking-widest text-ink-mute">Today · IN</p>
                             <p className="mt-1 text-xl font-bold text-signal-ok">+{num(todaysMovement.inUnits)}</p>
                         </div>
-                        <div className="rounded-xl bg-void/40 px-3.5 py-3">
-                            <p className="mono-tag text-[11px] uppercase tracking-widest text-[#7c7396]">Today · OUT</p>
+                        <div className="rounded-xl bg-panel/60 px-3.5 py-3">
+                            <p className="mono-tag text-[11px] uppercase tracking-widest text-ink-mute">Today · OUT</p>
                             <p className="mt-1 text-xl font-bold text-signal-out">-{num(todaysMovement.outUnits)}</p>
                         </div>
                     </div>
@@ -253,7 +253,7 @@ export default function Dashboard() {
                 </div>
 
                 <div className="glass rounded-2xl p-5">
-                    <h2 className="mb-4 text-sm font-semibold uppercase tracking-widest text-[#9c92b8]">
+                    <h2 className="mb-4 text-sm font-semibold uppercase tracking-widest text-ink-soft">
                         Quick Actions
                     </h2>
                     <div className="grid grid-cols-2 gap-2 lg:grid-cols-1">
@@ -313,16 +313,16 @@ function Metric({ label, value, icon, tone, to }) {
     const content = (
         <>
             <div className="flex items-start justify-between">
-                <span className="mono-tag text-xs uppercase tracking-widest text-[#9c92b8]">{label}</span>
+                <span className="mono-tag text-xs uppercase tracking-widest text-ink-soft">{label}</span>
                 <span
                     className={`flex h-8 w-8 items-center justify-center rounded-lg text-sm ${
-                        tone === "iris" ? "bg-iris-500/20 text-iris-300" : "bg-white/5 text-[#9c92b8]"
+                        tone === "iris" ? "bg-iris-500/20 text-iris-300" : "bg-mist/5 text-ink-soft"
                     }`}
                 >
                     {icon}
                 </span>
             </div>
-            <p className="mt-3 text-3xl font-bold text-white">{value}</p>
+            <p className="mt-3 text-3xl font-bold text-ink">{value}</p>
         </>
     );
 
@@ -354,14 +354,14 @@ function Metric({ label, value, icon, tone, to }) {
 
 function DistributionRow({ label, value, pct, dot, cls }) {
     return (
-        <div className="flex items-center justify-between rounded-xl bg-void/40 px-3.5 py-2.5">
+        <div className="flex items-center justify-between rounded-xl bg-panel/60 px-3.5 py-2.5">
             <div className="flex items-center gap-2">
                 <span className={`h-1.5 w-1.5 rounded-full ${dot}`} />
-                <span className="mono-tag text-[11px] uppercase tracking-widest text-[#7c7396]">{label}</span>
+                <span className="mono-tag text-[11px] uppercase tracking-widest text-ink-mute">{label}</span>
             </div>
             <div className="flex items-center gap-3">
                 <span className={`text-sm font-bold ${cls}`}>{num(value)}</span>
-                <span className="mono-tag text-xs text-[#7c7396]">{pct}%</span>
+                <span className="mono-tag text-xs text-ink-mute">{pct}%</span>
             </div>
         </div>
     );
@@ -371,12 +371,12 @@ function AttentionRow({ product }) {
     return (
         <Link
             to={`/products/${product._id}`}
-            className="flex items-center justify-between gap-3 rounded-xl bg-void/40 px-3.5 py-3 transition hover:bg-void/60"
+            className="flex items-center justify-between gap-3 rounded-xl bg-panel/60 px-3.5 py-3 transition hover:bg-iris-500/15"
         >
             <div className="min-w-0">
-                <p className="truncate text-sm font-semibold text-[#e7e2f5]">{product.name}</p>
+                <p className="truncate text-sm font-semibold text-ink">{product.name}</p>
                 <p className="mono-tag mt-0.5 text-[11px] uppercase tracking-widest text-iris-400">{product.sku}</p>
-                <p className="mt-1 text-xs text-[#9c92b8]">
+                <p className="mt-1 text-xs text-ink-soft">
                     {num(product.quantityInStock)} on hand · Reorder level {num(product.reorderLevel)}
                 </p>
             </div>
@@ -390,16 +390,16 @@ function HoldingRow({ product, maxQty }) {
     return (
         <Link
             to={`/products/${product._id}`}
-            className="block rounded-xl bg-void/40 px-3.5 py-3 transition hover:bg-void/60"
+            className="block rounded-xl bg-panel/60 px-3.5 py-3 transition hover:bg-iris-500/15"
         >
             <div className="flex items-center justify-between gap-3">
                 <div className="min-w-0">
-                    <p className="truncate text-sm font-semibold text-[#e7e2f5]">{product.name}</p>
+                    <p className="truncate text-sm font-semibold text-ink">{product.name}</p>
                     <p className="mono-tag text-[11px] uppercase tracking-widest text-iris-400">{product.sku}</p>
                 </div>
                 <div className="flex shrink-0 items-center gap-2">
                     <StockBadge quantity={product.quantityInStock} reorderLevel={product.reorderLevel} />
-                    <span className="text-lg font-bold text-white">{num(product.quantityInStock)}</span>
+                    <span className="text-lg font-bold text-ink">{num(product.quantityInStock)}</span>
                 </div>
             </div>
             <div className="mt-2 h-1.5 w-full overflow-hidden rounded-full bg-void/60">
@@ -420,11 +420,11 @@ function MovementRow({ t }) {
                 {t.type === "IN" ? "↓" : "↑"}
             </span>
             <div className="min-w-0 flex-1">
-                <p className="truncate text-sm text-[#e7e2f5]">{t.product?.name || "Deleted product"}</p>
-                <p className="mono-tag text-[11px] text-[#7c7396]">
+                <p className="truncate text-sm text-ink">{t.product?.name || "Deleted product"}</p>
+                <p className="mono-tag text-[11px] text-ink-mute">
                     {t.type} · {t.quantity} units · {relativeTime(t.createdAt)}
                 </p>
-                {t.note && <p className="mt-0.5 truncate text-xs text-[#9c92b8]">{t.note}</p>}
+                {t.note && <p className="mt-0.5 truncate text-xs text-ink-soft">{t.note}</p>}
             </div>
         </>
     );
@@ -433,12 +433,12 @@ function MovementRow({ t }) {
         return (
             <Link
                 to={`/products/${t.product._id}`}
-                className="flex items-center gap-3 rounded-xl bg-void/40 px-3 py-2.5 transition hover:bg-void/60"
+                className="flex items-center gap-3 rounded-xl bg-panel/60 px-3 py-2.5 transition hover:bg-iris-500/15"
             >
                 {inner}
             </Link>
         );
     }
 
-    return <div className="flex items-center gap-3 rounded-xl bg-void/40 px-3 py-2.5">{inner}</div>;
+    return <div className="flex items-center gap-3 rounded-xl bg-panel/60 px-3 py-2.5">{inner}</div>;
 }

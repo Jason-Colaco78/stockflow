@@ -231,7 +231,7 @@ export default function ProductForm({ initial, onSaved, onCancel }) {
                             className="h-16 w-16 shrink-0 rounded-lg border border-iris-400/15 object-cover"
                         />
                     ) : (
-                        <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-lg border border-dashed border-iris-400/20 text-[10px] text-[#7c7396]">
+                        <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-lg border border-dashed border-iris-400/20 text-[10px] text-ink-mute">
                             No image
                         </div>
                     )}
@@ -242,13 +242,13 @@ export default function ProductForm({ initial, onSaved, onCancel }) {
                         onChange={onPickImage}
                     />
                 </div>
-                <span className="mt-1 block text-xs text-[#7c7396]">
+                <span className="mt-1 block text-xs text-ink-mute">
                     JPEG, PNG, or WEBP · max 2 MB{isEdit ? " · replaces the current image" : ""}
                 </span>
             </Field>
 
             {isEdit && (
-                <p className="mono-tag rounded-lg border border-iris-400/15 bg-void/40 px-3 py-2 text-xs text-[#7c7396]">
+                <p className="mono-tag rounded-lg border border-iris-400/15 bg-void/40 px-3 py-2 text-xs text-ink-mute">
                     Stock quantity is controlled through transactions, not this form.
                 </p>
             )}

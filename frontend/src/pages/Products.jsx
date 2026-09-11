@@ -125,8 +125,8 @@ export default function Products() {
                             onClick={() => setStatus(f.key)}
                             className={`rounded-lg px-3 py-2 text-xs font-semibold transition ${
                                 status === f.key
-                                    ? "bg-iris-500/25 text-white"
-                                    : "bg-white/5 text-[#9c92b8] hover:text-white"
+                                    ? "bg-iris-500/25 text-ink"
+                                    : "bg-mist/5 text-ink-soft hover:text-ink"
                             }`}
                         >
                             {f.label}
@@ -217,7 +217,7 @@ function ProductCard({ product, onEdit, onDelete }) {
                         className="relative z-10 h-full w-full object-contain p-6 transition-transform duration-300 ease-out group-hover:scale-105"
                     />
                 ) : (
-                    <div className="relative z-10 flex h-full flex-col items-center justify-center gap-2 text-[#7c7396]">
+                    <div className="relative z-10 flex h-full flex-col items-center justify-center gap-2 text-ink-mute">
                         <span className="flex h-11 w-11 items-center justify-center rounded-xl border border-dashed border-iris-400/25 text-lg">
                             ▦
                         </span>
@@ -232,7 +232,7 @@ function ProductCard({ product, onEdit, onDelete }) {
             <div className="flex flex-1 flex-col p-5">
                 <Link
                     to={`/products/${product._id}`}
-                    className="line-clamp-2 text-base font-semibold leading-snug text-white hover:text-iris-300"
+                    className="line-clamp-2 text-base font-semibold leading-snug text-ink hover:text-iris-300"
                 >
                     {product.name}
                 </Link>
@@ -249,17 +249,17 @@ function ProductCard({ product, onEdit, onDelete }) {
 
                 <div className="mt-auto pt-4">
                     <div className="flex items-center justify-between rounded-xl border border-iris-400/15 bg-void/40 px-4 py-3">
-                        <p className="mono-tag text-[11px] uppercase tracking-widest text-[#7c7396]">On hand</p>
-                        <p className="text-xl font-bold text-white">
+                        <p className="mono-tag text-[11px] uppercase tracking-widest text-ink-mute">On hand</p>
+                        <p className="text-xl font-bold text-ink">
                             {num(product.quantityInStock)}{" "}
-                            <span className="text-xs font-medium text-[#9c92b8]">units</span>
+                            <span className="text-xs font-medium text-ink-soft">units</span>
                         </p>
                     </div>
 
                     <div className="mt-4 flex items-center gap-1.5 border-t border-iris-400/10 pt-4">
                         <Link
                             to={`/products/${product._id}`}
-                            className="btn btn-ghost flex-1 justify-center px-3 py-1.5 text-xs transition group-hover:border-iris-400/50 group-hover:bg-iris-500/20 group-hover:text-white"
+                            className="btn btn-ghost flex-1 justify-center px-3 py-1.5 text-xs transition group-hover:border-iris-400/50 group-hover:bg-iris-500/20 group-hover:text-ink"
                         >
                             Details
                         </Link>
@@ -279,8 +279,8 @@ function ProductCard({ product, onEdit, onDelete }) {
 function Meta({ label, value }) {
     return (
         <div>
-            <p className="mono-tag text-[11px] uppercase tracking-widest text-[#7c7396]">{label}</p>
-            <p className="truncate text-[#d7cdf5]">{value}</p>
+            <p className="mono-tag text-[11px] uppercase tracking-widest text-ink-mute">{label}</p>
+            <p className="truncate text-ink">{value}</p>
         </div>
     );
 }

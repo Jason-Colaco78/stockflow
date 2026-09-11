@@ -139,15 +139,15 @@ export default function Categories() {
                                         {c.name?.slice(0, 2).toUpperCase()}
                                     </div>
                                     <div className="min-w-0 flex-1">
-                                        <p className="truncate font-semibold text-white">{c.name}</p>
+                                        <p className="truncate font-semibold text-ink">{c.name}</p>
                                         {count !== null && (
-                                            <p className="truncate text-xs text-[#9c92b8]">
+                                            <p className="truncate text-xs text-ink-soft">
                                                 {num(count)} product{count === 1 ? "" : "s"}
                                             </p>
                                         )}
                                     </div>
                                 </div>
-                                <p className="mt-4 line-clamp-3 text-sm text-[#d7cdf5]">
+                                <p className="mt-4 line-clamp-3 text-sm text-ink">
                                     {c.description || "No description"}
                                 </p>
                                 <div className="mt-4 flex gap-1.5 border-t border-iris-400/10 pt-4">
@@ -207,9 +207,9 @@ export default function Categories() {
                 {viewing && (
                     <div className="space-y-4">
                         <div className="border-b border-iris-400/10 pb-3">
-                            <p className="text-sm text-[#d7cdf5]">{viewing.description || "No description"}</p>
+                            <p className="text-sm text-ink">{viewing.description || "No description"}</p>
                             {!viewLoading && !viewError && (
-                                <p className="mt-2 text-xs uppercase tracking-widest text-[#7c7396]">
+                                <p className="mt-2 text-xs uppercase tracking-widest text-ink-mute">
                                     {num(viewProducts?.length ?? 0)} product
                                     {(viewProducts?.length ?? 0) === 1 ? "" : "s"} in this category
                                 </p>
@@ -230,17 +230,17 @@ export default function Categories() {
                                         className="flex flex-col gap-3 rounded-xl border border-iris-400/10 bg-void/30 p-4 sm:flex-row sm:items-center sm:justify-between"
                                     >
                                         <div className="min-w-0">
-                                            <p className="truncate text-sm font-semibold text-white">{p.name}</p>
+                                            <p className="truncate text-sm font-semibold text-ink">{p.name}</p>
                                             <p className="mono-tag mt-0.5 text-xs uppercase tracking-widest text-iris-400">
                                                 {p.sku}
                                             </p>
-                                            <p className="mt-1 truncate text-xs text-[#9c92b8]">
+                                            <p className="mt-1 truncate text-xs text-ink-soft">
                                                 Supplier: {p.supplier?.name || "—"}
                                             </p>
                                         </div>
                                         <div className="flex shrink-0 items-center gap-3 sm:flex-col sm:items-end sm:gap-1.5">
                                             <StockBadge quantity={p.quantityInStock} reorderLevel={p.reorderLevel} />
-                                            <p className="text-xs text-[#d7cdf5]">
+                                            <p className="text-xs text-ink">
                                                 {num(p.quantityInStock)} on hand · {money(p.unitPrice)}
                                             </p>
                                         </div>

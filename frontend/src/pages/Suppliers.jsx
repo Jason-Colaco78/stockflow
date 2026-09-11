@@ -111,13 +111,13 @@ export default function Suppliers() {
                                     {s.name?.slice(0, 2).toUpperCase()}
                                 </div>
                                 <div className="min-w-0">
-                                    <p className="truncate font-semibold text-white">{s.name}</p>
-                                    <p className="truncate text-xs text-[#9c92b8]">
+                                    <p className="truncate font-semibold text-ink">{s.name}</p>
+                                    <p className="truncate text-xs text-ink-soft">
                                         {s.contactName || "No contact"}
                                     </p>
                                 </div>
                             </div>
-                            <div className="mt-4 space-y-1 text-sm text-[#d7cdf5]">
+                            <div className="mt-4 space-y-1 text-sm text-ink">
                                 <p className="truncate">✉ {s.email || "—"}</p>
                                 <p className="truncate">☎ {s.phone || "—"}</p>
                                 <p className="line-clamp-2">⌂ {s.address || "—"}</p>
@@ -190,8 +190,8 @@ export default function Suppliers() {
 function Row({ label, value }) {
     return (
         <div className="flex justify-between gap-4 border-b border-iris-400/10 pb-2">
-            <dt className="mono-tag text-[11px] uppercase tracking-widest text-[#7c7396]">{label}</dt>
-            <dd className="text-right text-[#e7e2f5]">{value || "—"}</dd>
+            <dt className="mono-tag text-[11px] uppercase tracking-widest text-ink-mute">{label}</dt>
+            <dd className="text-right text-ink">{value || "—"}</dd>
         </div>
     );
 }
