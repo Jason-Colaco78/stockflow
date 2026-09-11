@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { NavLink, Outlet } from "react-router-dom";
 import { useTheme } from "../context/ThemeContext.jsx";
+import stockflowIcon from "../assets/stock-flow-icon.png";
 
 const NAV = [
     { to: "/", label: "Dashboard", icon: "▟", end: true },
@@ -120,16 +121,23 @@ export default function Layout() {
 
 function Brand({ compact }) {
     return (
-        <div className="flex items-center gap-3">
-            <div className="relative flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-iris-400 to-iris-700 text-white shadow-[0_10px_30px_-10px_rgba(124,58,237,0.9)]">
-                <span className="text-sm font-black">SF</span>
-            </div>
-            <div className={compact ? "" : "leading-tight"}>
-                <p className="text-sm font-bold tracking-wide text-ink">STOCKFLOW</p>
+        <div className={compact ? "flex items-center gap-2" : "flex w-full items-center gap-3 py-1"}>
+            <img
+                src={stockflowIcon}
+                alt="StockFlow"
+                width={512}
+                height={512}
+                className={compact ? "h-9 w-9 shrink-0" : "h-11 w-11 shrink-0"}
+            />
+            <div className="flex min-w-0 flex-col leading-tight">
+                <span className={compact ? "text-sm font-extrabold tracking-tight" : "text-lg font-extrabold tracking-tight"}>
+                    <span className="text-ink">STOCK</span>
+                    <span className="bg-gradient-to-r from-iris-400 to-iris-600 bg-clip-text text-transparent">FLOW</span>
+                </span>
                 {!compact && (
-                    <p className="mono-tag text-[10px] uppercase tracking-[0.25em] text-iris-400">
+                    <span className="mono-tag text-[9px] uppercase tracking-widest text-ink-mute">
                         Inventory · Ops
-                    </p>
+                    </span>
                 )}
             </div>
         </div>
