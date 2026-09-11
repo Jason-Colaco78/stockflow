@@ -1,7 +1,7 @@
 export const money = (n) =>
-    (Number(n) || 0).toLocaleString(undefined, {
+    (Number(n) || 0).toLocaleString("en-IN", {
         style: "currency",
-        currency: "USD"
+        currency: "INR"
     });
 
 export const num = (n) => (Number(n) || 0).toLocaleString();
