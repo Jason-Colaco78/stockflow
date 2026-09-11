@@ -152,7 +152,7 @@ export default function Products() {
             ) : filtered.length === 0 ? (
                 <EmptyState title="No matches" hint="Try a different search or filter." />
             ) : (
-                <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
+                <div className="grid gap-5 sm:grid-cols-2 xl:grid-cols-3">
                     {filtered.map((p) => (
                         <ProductCard
                             key={p._id}
@@ -201,58 +201,75 @@ export default function Products() {
 
 function ProductCard({ product, onEdit, onDelete }) {
     return (
-        <div className="glass glass-hover flex flex-col rounded-2xl p-5">
-            <div className="flex items-start justify-between gap-3">
-                <div className="flex min-w-0 items-start gap-3">
-                    {product.imageUrl ? (
-                        <img
-                            src={product.imageUrl}
-                            alt={product.name}
-                            loading="lazy"
-                            className="h-12 w-12 shrink-0 rounded-lg border border-iris-400/15 object-cover"
-                        />
-                    ) : (
-                        <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-lg border border-dashed border-iris-400/20 text-[9px] text-[#7c7396]">
-                            No image
-                        </div>
-                    )}
-                    <div className="min-w-0">
-                        <Link
-                            to={`/products/${product._id}`}
-                            className="block truncate text-base font-semibold text-white hover:text-iris-300"
-                        >
-                            {product.name}
-                        </Link>
-                        <p className="mono-tag mt-0.5 text-xs uppercase tracking-widest text-iris-400">
-                            {product.sku}
+        <div className="glass glass-hover group flex flex-col overflow-hidden rounded-2xl">
+            <Link
+                to={`/products/${product._id}`}
+                aria-label={`View ${product.name} details`}
+                className="relative block aspect-[16/10] shrink-0 overflow-hidden bg-gradient-to-b from-haze/70 via-panel/50 to-void/80"
+            >
+                <div className="grid-floor absolute inset-0 opacity-40" />
+                <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_35%,rgba(139,92,246,0.28),transparent_70%)] transition-opacity duration-300 group-hover:opacity-80" />
+                {product.imageUrl ? (
+                    <img
+                        src={product.imageUrl}
+                        alt={product.name}
+                        loading="lazy"
+                        className="relative z-10 h-full w-full object-contain p-6 transition-transform duration-300 ease-out group-hover:scale-105"
+                    />
+                ) : (
+                    <div className="relative z-10 flex h-full flex-col items-center justify-center gap-2 text-[#7c7396]">
+                        <span className="flex h-11 w-11 items-center justify-center rounded-xl border border-dashed border-iris-400/25 text-lg">
+                            ▦
+                        </span>
+                        <span className="mono-tag text-[10px] uppercase tracking-widest">No image</span>
+                    </div>
+                )}
+                <div className="absolute right-3 top-3 z-20 rounded-full bg-void/60 shadow-lg shadow-black/30 backdrop-blur-md">
+                    <StockBadge quantity={product.quantityInStock} reorderLevel={product.reorderLevel} />
+                </div>
+            </Link>
+
+            <div className="flex flex-1 flex-col p-5">
+                <Link
+                    to={`/products/${product._id}`}
+                    className="line-clamp-2 text-base font-semibold leading-snug text-white hover:text-iris-300"
+                >
+                    {product.name}
+                </Link>
+                <p className="mono-tag mt-1 text-xs uppercase tracking-widest text-iris-400">
+                    {product.sku}
+                </p>
+
+                <div className="mt-4 grid grid-cols-2 gap-3 text-sm">
+                    <Meta label="Category" value={product.category?.name || "—"} />
+                    <Meta label="Supplier" value={product.supplier?.name || "—"} />
+                    <Meta label="Unit Price" value={money(product.unitPrice)} />
+                    <Meta label="Reorder At" value={num(product.reorderLevel)} />
+                </div>
+
+                <div className="mt-auto pt-4">
+                    <div className="flex items-center justify-between rounded-xl border border-iris-400/15 bg-void/40 px-4 py-3">
+                        <p className="mono-tag text-[11px] uppercase tracking-widest text-[#7c7396]">On hand</p>
+                        <p className="text-xl font-bold text-white">
+                            {num(product.quantityInStock)}{" "}
+                            <span className="text-xs font-medium text-[#9c92b8]">units</span>
                         </p>
                     </div>
-                </div>
-                <StockBadge quantity={product.quantityInStock} reorderLevel={product.reorderLevel} />
-            </div>
 
-            <div className="mt-4 grid grid-cols-2 gap-3 text-sm">
-                <Meta label="Category" value={product.category?.name || "—"} />
-                <Meta label="Supplier" value={product.supplier?.name || "—"} />
-                <Meta label="Unit Price" value={money(product.unitPrice)} />
-                <Meta label="Reorder At" value={num(product.reorderLevel)} />
-            </div>
-
-            <div className="mt-4 flex items-end justify-between border-t border-iris-400/10 pt-4">
-                <div>
-                    <p className="mono-tag text-[11px] uppercase tracking-widest text-[#7c7396]">On hand</p>
-                    <p className="text-2xl font-bold text-white">{num(product.quantityInStock)}</p>
-                </div>
-                <div className="flex gap-1.5">
-                    <Link to={`/products/${product._id}`} className="btn btn-ghost px-3 py-1.5 text-xs">
-                        Details
-                    </Link>
-                    <button className="btn btn-ghost px-3 py-1.5 text-xs" onClick={onEdit}>
-                        Edit
-                    </button>
-                    <button className="btn btn-danger px-3 py-1.5 text-xs" onClick={onDelete}>
-                        Delete
-                    </button>
+                    <div className="mt-4 flex items-center gap-1.5 border-t border-iris-400/10 pt-4">
+                        <Link
+                            to={`/products/${product._id}`}
+                            className="btn btn-ghost flex-1 justify-center px-3 py-1.5 text-xs transition group-hover:border-iris-400/50 group-hover:bg-iris-500/20 group-hover:text-white"
+                        >
+                            Details
+                        </Link>
+                        <button className="btn btn-ghost px-3 py-1.5 text-xs" onClick={onEdit}>
+                            Edit
+                        </button>
+                        <button className="btn btn-danger px-3 py-1.5 text-xs" onClick={onDelete}>
+                            Delete
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
