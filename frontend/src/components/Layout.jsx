@@ -4,6 +4,7 @@ import { NavLink, Outlet } from "react-router-dom";
 const NAV = [
     { to: "/", label: "Dashboard", icon: "▟", end: true },
     { to: "/products", label: "Products", icon: "▤" },
+    { to: "/categories", label: "Categories", icon: "▥" },
     { to: "/transactions", label: "Transactions", icon: "⇄" },
     { to: "/suppliers", label: "Suppliers", icon: "☰" }
 ];

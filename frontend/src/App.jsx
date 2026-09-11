@@ -5,6 +5,7 @@ import Products from "./pages/Products.jsx";
 import ProductDetails from "./pages/ProductDetails.jsx";
 import Transactions from "./pages/Transactions.jsx";
 import Suppliers from "./pages/Suppliers.jsx";
+import Categories from "./pages/Categories.jsx";
 
 // Remount ProductDetails when the :id changes so its data refetches cleanly.
 function ProductDetailsRoute() {
@@ -21,6 +22,7 @@ export default function App() {
                 <Route path="products/:id" element={<ProductDetailsRoute />} />
                 <Route path="transactions" element={<Transactions />} />
                 <Route path="suppliers" element={<Suppliers />} />
+                <Route path="categories" element={<Categories />} />
                 <Route path="*" element={<Navigate to="/" replace />} />
             </Route>
         </Routes>
